@@ -11,6 +11,11 @@ export default {
         'md': '8px',  // Medium blur
         'lg': '12px', // Large blur
       },
+      fontFamily: {
+        sans: ['Helvetica', 'Arial', 'sans-serif'],
+        serif: ['Georgia', 'serif'],
+        custom: ['GothTitan', 'sans-serif'],
+      },
     },
   },
   plugins: [

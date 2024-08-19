@@ -3,6 +3,7 @@ import Home from './Components/Home'
 import Classic from './Components/Classic'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { assets } from './assets/assets'
+import Quote from './Components/Quote'
 
 const App = () => {
   return (
@@ -10,6 +11,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/classic" element={<Classic />} />
+        <Route path="/quote" element={<Quote/>}/>
       </Routes>
     </div>
   )
