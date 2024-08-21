@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import NavBar from './NavBar'
 import { charactersData } from '../assets/assets';
 import ResetTime from './ResetTime';
+import Confetti from 'react-confetti';
 
 const Classic = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -12,6 +13,30 @@ const Classic = () => {
     const [winBool,setWinBool] = useState(false);
     
     const todaysCharacter = charactersData[0];
+
+    const [showConfetti, setShowConfetti] = useState(false);
+    const [dimensions, setDimensions] = useState({
+        width: window.innerWidth,
+        height: window.innerHeight,
+    });
+
+    useEffect(() => {
+        const handleResize = () => {
+          setDimensions({
+            width: window.innerWidth,
+            height: window.innerHeight,
+          });
+        };
+    
+        window.addEventListener('resize', handleResize);
+    
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    const handleCharacterFound = () => {
+        setShowConfetti(true);
+        setTimeout(() => setShowConfetti(false), 3000);
+    };
     
     const handleChange = (event) => {
         const value = event.target.value.toLowerCase();
@@ -60,7 +85,8 @@ const Classic = () => {
                 item.attribute === todaysCharacter.attribute &&
                 item.military_branch === todaysCharacter.military_branch) {
                 setWinMessage(`Congratulations! You've guessed today's character: ${item.character}!!!`);
-                setWinBool(true);
+                setTimeout(() => setWinBool(true), 500);
+                setTimeout(() => handleCharacterFound(), 500);
             }
         });
     }, [delayedCharacters, todaysCharacter]);
@@ -198,6 +224,12 @@ const Classic = () => {
                 ))}
                 </ul>
             </div>
+            {showConfetti && (
+                <Confetti
+                width={dimensions.width-40}
+                height={dimensions.height-10}
+                />
+            )}
         </div>
     )
 }

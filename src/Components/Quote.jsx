@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import NavBar from './NavBar'
 import { charactersData } from '../assets/assets';
 import ResetTime from './ResetTime';
+import Confetti from 'react-confetti';
 
 const Quote = () => {
 
@@ -12,6 +13,30 @@ const Quote = () => {
   const [winMessage2, setWinMessage2] = useState('');
 
   const todaysCharacter = charactersData[3];
+
+  const [showConfetti, setShowConfetti] = useState(false);
+    const [dimensions, setDimensions] = useState({
+        width: window.innerWidth,
+        height: window.innerHeight,
+    });
+
+    useEffect(() => {
+        const handleResize = () => {
+          setDimensions({
+            width: window.innerWidth,
+            height: window.innerHeight,
+          });
+        };
+    
+        window.addEventListener('resize', handleResize);
+    
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    const handleCharacterFound = () => {
+        setShowConfetti(true);
+        setTimeout(() => setShowConfetti(false), 3000);
+    };
 
   const handleChange = (event) => {
     const value = event.target.value.toLowerCase();
@@ -37,7 +62,8 @@ const Quote = () => {
     charactersPicked.forEach((item) => {
         if (item.character === todaysCharacter.character) {
             setWinMessage2(`Congratulations! You've guessed today's character: ${item.character}!!!`);
-            setWinBool2(true);       
+            setWinBool2(true);
+            handleCharacterFound();       
         }
     });
     }, [charactersPicked, todaysCharacter]);
@@ -151,7 +177,13 @@ const Quote = () => {
                         <div className='text-white semi-bold'>{item.character}</div>
                     </li>
                 ))}
-                </ul>
+            </ul>
+            {showConfetti && (
+                <Confetti
+                width={dimensions.width-40}
+                height={dimensions.height-10}
+                />
+            )}
     </div>
   )
 }
