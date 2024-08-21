@@ -2,6 +2,8 @@
 
 Welcome to **AOTDLE**! AOTDLE is a fun, interactive game built with React where players try to guess the "Character of the Day". Players make guesses and are given clues based on the character's attributes. Keep guessing until you find the right character by using hints such as their quotes, attributes, and more!
 
+You can see a video of the app here : [![AoTdle]()](https://drive.google.com/file/d/1bu9k9RnilSwXmup3Z7aFFdAFLeMBtn8Z/view?usp=sharing)
+
 ## Table of Contents
 
 - [Gameplay](#gameplay)
